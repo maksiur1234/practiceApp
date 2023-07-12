@@ -1,9 +1,16 @@
 <?php
+namespace Tests\Feature;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Company;
+use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Database\Factories\EventFactory;
 
 class UserControllerTest extends TestCase
 {

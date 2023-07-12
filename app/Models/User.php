@@ -74,4 +74,8 @@ class User extends Authenticatable
         return $this->email;
     }
 
+    public function visits()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

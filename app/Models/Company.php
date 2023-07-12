@@ -15,10 +15,10 @@ class Company extends Model implements Authenticatable
 
 //    protected $fillable = ['companyName', 'email', 'password', 'type_id'];
 //
-//    public function type()
-//    {
-//        return $this->belongsTo(Type::class);
-//    }
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 
     protected $fillable = [
         'companyName',
