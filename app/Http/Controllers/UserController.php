@@ -11,19 +11,19 @@ class UserController extends Controller
 {
     use AuthenticatesUsers;
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-
-        if (auth()->attempt($credentials)) {
-        $user = auth()->user();
-        $token = $user->createToken('API Token')->plainTextToken;
-
-        return response()->json(['token' => $token], 200);
-        } else {
-        return response()->json(['error' => 'Invalid credentials'], 401);
-        }
-    }
+//    public function login(Request $request)
+//    {
+//        $credentials = $request->only('email', 'password');
+//
+//        if (auth()->attempt($credentials)) {
+//        $user = auth()->user();
+//        $token = $user->createToken('API Token')->plainTextToken;
+//
+//        return response()->json(['token' => $token], 200);
+//        } else {
+//        return response()->json(['error' => 'Invalid credentials'], 401);
+//        }
+//    }
 
     public function register(Request $request)
     {
@@ -44,17 +44,15 @@ class UserController extends Controller
         return response()->json(['token' => $token], 201);
     }
 
-    public function logout(Request $request)
-    {
-        $user = $request->user();
-
-        if ($user) {
-            $user->tokens()->delete();
-            Auth::guard('web')->logout();
-        }
-
-        return response()->json(['message' => 'Logged out successfully'], 200);
-    }
-
-
+//    public function logout(Request $request)
+//    {
+//        $user = $request->user();
+//
+//        if ($user) {
+//            $user->tokens()->delete();
+//            Auth::guard('web')->logout();
+//        }
+//
+//        return response()->json(['message' => 'Logged out successfully'], 200);
+//    }
 }

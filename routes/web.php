@@ -13,16 +13,6 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -89,3 +79,10 @@ Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('co
 Route::post('/companies', [CompanyController::class, 'store'])->name('companies');
 Route::get('/create-company', [CompanyController::class, 'create'])->name('companies.create');
 Route::post('/store-company', [CompanyController::class, 'store'])->name('companies.store');
+
+// Visit Request routes
+Route::match(['get', 'put'], '/visit-request/{eventId}', [CalenderController::class, 'sendVisitRequest'])
+    ->name('visit-request');
+
+Route::put('/visit-request/{eventId}/accept', [CalenderController::class, 'acceptVisitRequest']);
+Route::put('/visit-request/{eventId}/reject', [CalenderController::class, 'rejectVisitRequest']);
