@@ -14,6 +14,11 @@ class Event extends Model
         'event_start',
         'event_end',
         'company_id',
+<<<<<<< HEAD
+        'user_id',
+        'visit_date',
+=======
+>>>>>>> origin/main
     ];
 
     public function company()

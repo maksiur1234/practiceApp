@@ -1,0 +1,14 @@
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: activating (start) since Thu 2023-07-13 10:54:54 CEST; 1s ago
+    Process: 31098 ExecStartPre=/usr/share/mysql/mysql-systemd-start pre (code=exited, status=0/SUCCESS)
+   Main PID: 31106 (mysqld)
+     Status: "Server startup in progress"
+      Error: 98 (Address already in use)
+      Tasks: 10 (limit: 9393)
+     Memory: 361.2M
+        CPU: 934ms
+     CGroup: /system.slice/mysql.service
+             └─31106 /usr/sbin/mysqld
+
+lip 13 10:54:54 max-MS-7996 systemd[1]: Starting MySQL Community Server...

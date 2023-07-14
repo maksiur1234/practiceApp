@@ -5,6 +5,10 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CalenderController;
+<<<<<<< HEAD
+use App\Http\Controllers\StripeController;
+=======
+>>>>>>> origin/main
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -81,8 +85,38 @@ Route::get('/create-company', [CompanyController::class, 'create'])->name('compa
 Route::post('/store-company', [CompanyController::class, 'store'])->name('companies.store');
 
 // Visit Request routes
+<<<<<<< HEAD
+//Route::match(['get', 'put'], '/visit-request/{eventId}', [CalenderController::class, 'sendVisitRequest'])
+//    ->name('visit-request');
+//
+
+Route::get('/company/{companyId}/visit-requests', [CalenderController::class, 'showCompanyVisitRequests'])
+    ->name('company.visit.requests');
+Route::get('/visit-request/{eventId}', [CalenderController::class, 'showVisitRequestDetails'])
+    ->name('visit.request.details');
+Route::match(['get', 'post'], '/company/{companyId}/send-visit-request', [CalenderController::class, 'showVisitRequestForm'])
+    ->name('send.visit.request');
+Route::post('/company/{companyId}/send-visit-request', [CalenderController::class, 'sendVisitRequest'])
+    ->name('send.visit.request');
+Route::post('/visit-request/{eventId}/accept', [CalenderController::class, 'acceptVisitRequest'])
+    ->name('visit.request.accept');
+Route::delete('/visit-request/{eventId}/reject', [CalenderController::class, 'rejectVisitRequest'])
+    ->name('visit.request.reject');
+Route::post('/companies/{companyId}/upload-media', [CompanyController::class, 'uploadMedia'])
+    ->name('upload.media');
+Route::post('/visit-request/{eventId}/confirm', [CalenderController::class, 'confirmVisit'])
+    ->name('visit.confirm');
+Route::get('/', [StripeController::class, 'index'])->name('index');
+Route::post('/checkout', [StripeController::class, 'checkout'])->name('checkout');
+Route::get('/success', [StripeController::class, 'success'])->name('success');
+
+
+
+
+=======
 Route::match(['get', 'put'], '/visit-request/{eventId}', [CalenderController::class, 'sendVisitRequest'])
     ->name('visit-request');
 
 Route::put('/visit-request/{eventId}/accept', [CalenderController::class, 'acceptVisitRequest']);
 Route::put('/visit-request/{eventId}/reject', [CalenderController::class, 'rejectVisitRequest']);
+>>>>>>> origin/main

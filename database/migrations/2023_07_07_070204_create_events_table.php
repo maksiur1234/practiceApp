@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('event_name')->default('Visit');
             $table->date('event_start');
             $table->date('event_end')->nullable();
+<<<<<<< HEAD
+            $table->string('event_status')->default('pending');
+=======
+>>>>>>> origin/main
             $table->integer('company_id');
             $table->integer('user_id');
             $table->date('visit_date');
