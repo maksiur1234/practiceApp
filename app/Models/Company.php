@@ -19,10 +19,13 @@ class Company extends Model implements Authenticatable
     {
         return $this->belongsTo(Type::class);
     }
+<<<<<<< HEAD
     public function events()
     {
         return $this->hasMany(Event::class);
     }
+=======
+>>>>>>> origin/main
 
     protected $fillable = [
         'companyName',
@@ -31,8 +34,12 @@ class Company extends Model implements Authenticatable
         'provider',
         'provider_id',
         'provider_token',
+<<<<<<< HEAD
         'type_id',
         'media_url',
+=======
+        'type_id'
+>>>>>>> origin/main
         // inne pola Twojego modelu Company
     ];
 
@@ -106,10 +113,14 @@ class Company extends Model implements Authenticatable
 
     public function user()
     {
+<<<<<<< HEAD
         return $this->belongsTo(User::class, 'user_id', 'username');
     }
     public function visitRequests()
     {
         return $this->hasMany(Event::class);
+=======
+        return $this->belongsTo(User::class, 'companyOwner', 'username');
+>>>>>>> origin/main
     }
 }

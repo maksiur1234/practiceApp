@@ -13,20 +13,31 @@ class CompanyController extends Controller
 {
     public function show(Company $company)
     {
+<<<<<<< HEAD
         $user = Auth::user();
         // return response()->json(['company' => $company], 200);
         return view('companies.show', ['company' => $company, 'user' => $user]);
+=======
+        return response()->json(['company' => $company], 200);
+>>>>>>> origin/main
     }
 
     public function create()
     {
         $types = Type::all(); // Pobierz wszystkie typy firm
 
+<<<<<<< HEAD
         // return response()->json(['types' => $types], 200);
         return view('companies.create', ['types' => $types]);
     }
 
     public function store(StoreCompanyRequest $request)
+=======
+        return response()->json(['types' => $types], 200);
+    }
+
+    public function store(StoreCompanyRequest $request): JsonResponse
+>>>>>>> origin/main
     {
         // Get the logged-in user
         $user = Auth::user();
@@ -37,6 +48,7 @@ class CompanyController extends Controller
         $company->email = $request->input('email');
         $company->password = bcrypt($request->input('password'));
         $company->type_id = $request->input('type_id'); // Assign the type_id from the request
+<<<<<<< HEAD
         $company->user_id = $user->username;
         $company->media_url = 'example.com';
         $company->save();
@@ -69,4 +81,13 @@ class CompanyController extends Controller
         return redirect()->back()->with('success', 'Media uploaded successfully!');
     }
 
+=======
+        $company->companyOwner = $user->username;
+        $company->save();
+
+        // Redirect the user to the appropriate page after creating the company
+        return response()->json(['name' => $company->companyName, 'id' => $company->id]);
+        // return redirect('/home')->with('success', 'Company created successfully!');
+    }
+>>>>>>> origin/main
 }
