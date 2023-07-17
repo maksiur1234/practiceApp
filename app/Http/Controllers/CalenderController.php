@@ -77,9 +77,7 @@ class CalenderController extends Controller
         $user = Auth::user();
 
         $company = Company::findOrFail($companyId);
-        $visitRequests = Event::where('company_id', $companyId)
-            ->whereIn('event_status', ['pending', 'accepted'])
-            ->get();
+        $visitRequests = Event::where('company_id', $companyId)->get();
 
         return view('company_visit_requests', compact('company', 'visitRequests', 'user'));
     }

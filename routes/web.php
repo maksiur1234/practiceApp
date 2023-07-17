@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyAuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\HomeController;
@@ -100,11 +101,18 @@ Route::delete('/visit-request/{eventId}/reject', [CalenderController::class, 're
     ->name('visit.request.reject');
 Route::post('/companies/{companyId}/upload-media', [CompanyController::class, 'uploadMedia'])
     ->name('upload.media');
-Route::post('/visit-request/{eventId}/confirm', [CalenderController::class, 'confirmVisit'])
-    ->name('visit.confirm');
-Route::get('/', [StripeController::class, 'index'])->name('index');
-Route::post('/checkout', [StripeController::class, 'checkout'])->name('checkout');
-Route::get('/success', [StripeController::class, 'success'])->name('success');
+Route::get('events/create', [EventController::class, 'create'])
+    ->name('events.create');
+Route::post('events/getCompaniesByType', [EventController::class, 'getCompaniesByType'])
+    ->name('events.getCompaniesByType');
+Route::post('events/store', [EventController::class, 'store'])
+    ->name('events.store');
+Route::get('/', [StripeController::class, 'index'])
+    ->name('index');
+Route::post('/checkout', [StripeController::class, 'checkout'])
+    ->name('checkout');
+Route::get('/success', [StripeController::class, 'success'])
+    ->name('success');
 
 
 

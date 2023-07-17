@@ -15,8 +15,9 @@
                         @endif
                         {{ __('You are logged in as a user!') }}<br>
                         If you want to create a new company, click the link.<br>
-                        <a href="{{ route('companies.create') }}">Create a new company</a>
-                        <div class="card-header">
+                            <h2> <a href="{{ route('companies.create') }}">Create a new company</a><br></h2>
+                            <h2><a href="{{ route('events.create') }}">Create a new event</a></h2>
+                            <div class="card-header">
                             <div class="card-body">
                                 @if ($user->companies->count() > 0)
                                     @foreach ($user->companies as $item)
@@ -50,6 +51,7 @@
                                     <a href="{{ route('send.visit.request', ['companyId' => $company->id]) }}">Send Visit Request for {{ $company->companyName }}</a>
                                     <hr>
                                 @endforeach
+
                             </div>
                         </div>
                     </div>

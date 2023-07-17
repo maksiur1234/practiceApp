@@ -29,6 +29,19 @@
                                                         <p>{{ $visitRequest->visit_date }}</p>
                                                         <p>{{ $visitRequest->event_name }}</p>
                                                         <p>Status: {{ $visitRequest->event_status }}</p>
+                                                        @if ($visitRequest->event_status === 'paid')
+                                                            <form action="{{ route('visit.request.accept', ['eventId' => $visitRequest->id]) }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="eventId" value="{{ $visitRequest->id }}">
+                                                                <button type="submit">Accept</button>
+                                                            </form>
+
+                                                            <form action="{{ route('visit.request.reject', ['eventId' => $visitRequest->id]) }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="eventId" value="{{ $visitRequest->id }}">
+                                                                <button type="submit">Reject</button>
+                                                            </form>
+                                                        @endif
                                                     </div>
                                                     <hr>
                                                 @endforeach

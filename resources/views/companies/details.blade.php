@@ -24,18 +24,6 @@
                                 <p>Visit Date: {{ $event->visit_date }}</p>
                                 <p>Event Name: {{ $event->event_name }}</p>
 
-                                <form method="POST" action="{{ route('visit.request.accept', $event->id) }}">
-                                    @csrf
-                                    <input type="hidden" name="company_id" value="{{ $event->company_id }}">
-                                    <button type="submit" class="btn btn-success">Accept</button>
-                                </form>
-
-                                <form method="POST" action="{{ route('visit.request.reject', $event->id) }}">
-                                    @csrf
-                                    <input type="hidden" name="company_id" value="{{ $event->company_id }}">
-                                    <button type="submit" class="btn btn-danger">Reject</button>
-                                </form>
-
                             </div>
                             </div>
                         </div>
