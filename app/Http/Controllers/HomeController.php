@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/main
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -17,7 +14,6 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-<<<<<<< HEAD
     }
 
     public function index()
@@ -27,15 +23,5 @@ class HomeController extends Controller
 
         // return response()->json(['user' => $user, 'companyName' => $companyName], 200);
         return view('home', ['user' => $user, 'companyName' => $companyName]);
-=======
-        }
-
-        public function index()
-        {
-        $user = Auth::user();
-        $companyName = $user->company ? $user->company->companyName : null;
-
-        return response()->json(['user' => $user, 'companyName' => $companyName], 200);
->>>>>>> origin/main
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
-<<<<<<< HEAD
 use App\Models\Company;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -13,12 +12,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class CalenderController extends Controller
 {
-=======
-
-class CalenderController extends Controller
-{
-
->>>>>>> origin/main
     public function sendVisitRequest(Request $request)
     {
         $request->validate([
@@ -35,23 +28,15 @@ class CalenderController extends Controller
         $event->company_id = $request->company_id;
         $event->user_id = $user->id;
         $event->visit_date = $request->visit_date;
-<<<<<<< HEAD
-        $event->event_status = 'pending'; // Set the event status to 'pending'
+        $event->event_status = 'pending';
         $event->save();
 
-        // Associate the event with the company
         $company = Company::findOrFail($request->company_id);
         $company->events()->save($event);
 
-        return redirect('/home')->with('success', 'Wysłano żądanie wizyty pomyślnie!');
-    }
-=======
-        $event->save();
-
-        return response()->json(['message' => 'Request sent successfully']);
+        return response()->json(['message' => 'Visit request sent successfully']);
     }
 
->>>>>>> origin/main
     public function acceptVisitRequest(Request $request, $eventId)
     {
         $request->validate([
@@ -61,24 +46,15 @@ class CalenderController extends Controller
         $event = Event::findOrFail($eventId);
 
         if ($event->company_id != $request->company_id) {
-<<<<<<< HEAD
-            return redirect('/home')->with('error', 'You do not have permission to do this!');
-=======
-            return response()->json(['message' => 'You do not have permission for that!'], 403);
->>>>>>> origin/main
+            return response()->json(['error' => 'You do not have permission to do this!'], 403);
         }
 
         $event->event_name = "Visit Accepted";
         $event->save();
 
-<<<<<<< HEAD
-        return redirect('/home')->with('success', 'Visit request has been accepted!');
-    }
-=======
-        return response()->json(['message' => 'Visit accepted']);
+        return response()->json(['message' => 'Visit request has been accepted']);
     }
 
->>>>>>> origin/main
     public function rejectVisitRequest(Request $request, $eventId)
     {
         $request->validate([
@@ -87,15 +63,13 @@ class CalenderController extends Controller
 
         $event = Event::findOrFail($eventId);
 
-<<<<<<< HEAD
         if ($event->company_id != $request->company_id) {
-            return redirect('/home')->with('error', 'You do not have permission to do this!');
+            return response()->json(['error' => 'You do not have permission to do this!'], 403);
         }
 
-        // Delete the record from the database
         $event->delete();
 
-        return redirect('/home')->with('success', 'Visit request has been rejected!');
+        return response()->json(['message' => 'Visit request has been rejected']);
     }
 
     public function showCompanyVisitRequests($companyId)
@@ -103,9 +77,7 @@ class CalenderController extends Controller
         $user = Auth::user();
 
         $company = Company::findOrFail($companyId);
-        $visitRequests = Event::where('company_id', $companyId)
-            ->whereIn('event_status', ['pending', 'accepted'])
-            ->get();
+        $visitRequests = Event::where('company_id', $companyId)->get();
 
         return view('company_visit_requests', compact('company', 'visitRequests', 'user'));
     }
@@ -133,26 +105,14 @@ class CalenderController extends Controller
     {
         $event = Event::findOrFail($eventId);
 
-        // Sprawdź, czy zalogowany użytkownik jest właścicielem firmy
         if ($event->company->user_id !== Auth::id()) {
             return redirect('/home')->with('error', 'You do not have permission to do this!');
         }
 
-        // Zmiana statusu wizyty na "potwierdzone"
         $event->event_status = 'accepted';
         $event->save();
 
         return redirect('/home')->with('success', 'Visit has been confirmed!');
-=======
-        if($event->company_id != $request->company_id) {
-            return response()->json(['message' => 'You do not have permission for that!'], 403);
-        }
-
-        $event->event_name = "Visit Rejected"; // Poprawka: zmieniono na "Visit Rejected"
-        $event->save();
-
-        return response()->json(['message' => 'Visit rejected']);
->>>>>>> origin/main
     }
 
 }

@@ -66,11 +66,7 @@ class User extends Authenticatable
 
     public function companies()
     {
-<<<<<<< HEAD
         return $this->hasMany(Company::class, 'user_id', 'username');
-=======
-        return $this->hasMany(Company::class, 'companyOwner', 'username');
->>>>>>> origin/main
     }
 
     public function getEmail(): string
@@ -81,5 +77,9 @@ class User extends Authenticatable
     public function visits()
     {
         return $this->hasMany(Event::class);
+    }
+    public function gifts()
+    {
+        return $this->hasMany(Gift::class);
     }
 }

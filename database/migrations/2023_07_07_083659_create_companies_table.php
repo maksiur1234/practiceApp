@@ -17,12 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('type_id')->default(1);
-<<<<<<< HEAD
             $table->string('user_id');
             $table->string('media_url')->default('example.com');
-=======
-            $table->string('companyOwner')->nullable()->change();
->>>>>>> origin/main
             $table->timestamps();
         });
     }
