@@ -12,7 +12,7 @@ class Gift extends Model
         'necessary_requirements',
         'optional_requirements',
         'links',
-        'user_id'
+        'user_id',
     ];
 
     public function user()

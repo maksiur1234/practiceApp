@@ -1,20 +1,20 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Company;
 use App\Models\Type;
+use Illuminate\Http\JsonResponse;
 
 class EventController extends Controller
 {
     public function create()
     {
         $types = Type::all();
-        if (request()->expectsJson()) {
-            $companies = [];
-            return response()->json(['types' => $types, 'companies' => $companies], 200);
-        }
+        session()->forget('selected_type');
+        session()->forget('selected_companies');
         return view('events.create', compact('types'));
     }
 
@@ -23,26 +23,61 @@ class EventController extends Controller
         $typeId = $request->input('type_id');
         $companies = Company::where('type_id', $typeId)->get();
 
-        return view('events.companies', compact('companies'));
+        return response()->json(['companies' => $companies]);
     }
+
     public function store(Request $request)
     {
         $request->validate([
+            'type_id' => 'required|exists:types,id',
             'event_name' => 'required',
             'event_start' => 'required|date',
             'company_id' => 'required|exists:companies,id',
+            'event_end' => 'nullable|date',
+            'event_status' => 'nullable',
         ]);
 
         try {
-            $event = new Event();
-            $event->event_name = $request->input('event_name');
-            $event->event_start = $request->input('event_start');
-            $event->company_id = $request->input('company_id');
-            $event->save();
+            $data = $request->only([
+                'event_name',
+                'event_start',
+                'company_id',
+                'event_end',
+                'event_status',
+            ]);
 
-            return response()->json(['message' => 'New event created successfully!'], 201);
+            $event = Event::create($data);
+
+            return new JsonResponse(['message' => 'New event created successfully!', 'data' => $event], 201);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to save event to the database.'], 500);
+            return new JsonResponse(['error' => 'Failed to save event to the database.'], 500);
         }
+    }
+
+
+    public function selectCompanies(Request $request)
+    {
+        $request->validate([
+            'type_id' => 'required|exists:types,id',
+        ]);
+
+        session(['selected_type' => $request->input('type_id')]);
+        session()->forget('selected_companies');
+
+        return redirect()->route('events.chooseCompanyAndDate');
+    }
+
+    public function chooseCompanyAndDate()
+    {
+        $selectedType = session('selected_type');
+
+        if (!$selectedType) {
+            return redirect()->route('events.create')->withErrors(['error' => 'Please select a type first.']);
+        }
+
+        $companies = Company::where('type_id', $selectedType)->get();
+        session(['selected_companies' => $companies]);
+
+        return view('events.choose_company_and_date', compact('companies'));
     }
 }

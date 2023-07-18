@@ -42,10 +42,8 @@ class CompanyController extends Controller
         $company->media_url = 'example.com';
         $company->save();
 
-        if (request()->expectsJson()) {
-            return response()->json(['name' => $company->companyName, 'id' => $company->id]);
-        }
-        return redirect('/home')->with('success', 'Firma została utworzona pomyślnie!');
+        return response()->json(['name' => $company->companyName, 'id' => $company->id]);
+        //return redirect('/home')->with('success', 'Firma została utworzona pomyślnie!');
     }
 
     public function uploadMedia(Request $request, $companyId)
@@ -68,10 +66,8 @@ class CompanyController extends Controller
             $company->save();
         }
 
-        if (request()->expectsJson()) {
-            return response()->json(['message' => 'Media uploaded successfully!'], 200);
-        }
-        return redirect()->back()->with('success', 'Media uploaded successfully!');
+        return response()->json(['message' => 'Media uploaded successfully!'], 200);
+        //return redirect()->back()->with('success', 'Media uploaded successfully!');
     }
 
 }

@@ -16,6 +16,7 @@ class Event extends Model
         'company_id',
         'user_id',
         'visit_date',
+        'event_status',
     ];
 
     public function company()

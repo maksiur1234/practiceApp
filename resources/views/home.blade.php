@@ -58,7 +58,7 @@
                                             <h4>Title: {{ $gift->title }}</h4>
                                             <p>Description: {{ $gift->description }}</p>
                                             <p>Necessary requirements: {{ $gift->necessary_requirements }}</p>
-                                            <p>Optional requirements{{ $gift->optional_requirements  }}</p>
+                                            <p>Optional requirements: {{ $gift->optional_requirements  }}</p>
                                             <p>Links: <a href="{{ $gift->links }}">{{ $gift->links }}</a></p>
                                         </div>
                                         <a href="{{ route('presents.edit', ['id' => $gift->id]) }}">Edit</a>

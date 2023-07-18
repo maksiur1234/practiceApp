@@ -15,7 +15,7 @@
                         @endif
 
                         <div class="card-header">
-                            <h3>Select company and make a event!</h3>
+                            <h3>Select company and make an event!</h3>
                             <div class="card-body">
                                 <div class="card-body">
                                     @if ($companies->isEmpty())
@@ -27,23 +27,17 @@
                                                 <li>{{ $company->companyName }}</li>
                                             @endforeach
                                         </ul>
-                                    @endif
-                                @if(isset($companies) && count($companies) > 0)
-                                        <form id="eventForm" action="{{ route('events.store') }}" method="POST">
-                                            @csrf <!-- Dodaj to @csrf -->
+                                        <form action="{{ route('events.store') }}" method="post" id="eventForm">
+                                            @csrf
+                                            <input type="hidden" name="type_id" value="{{ session('selected_type') }}">
+                                            @foreach ($companies as $company)
+                                                <input type="radio" name="company_id" value="{{ $company->id }}" required> {{ $company->companyName }}<br>
+                                            @endforeach
                                             <label for="event_name">Event Name:</label>
                                             <input type="text" name="event_name" required>
 
                                             <label for="event_start">Event Date:</label>
                                             <input type="date" name="event_start" required>
-
-                                            <label for="company_id">Select Company:</label>
-                                            <select name="company_id" id="company_id" required>
-                                                <option value="">Select a company</option>
-                                                @foreach ($companies as $company)
-                                                    <option value="{{ $company->id }}">{{ $company->companyName }}</option>
-                                                @endforeach
-                                            </select>
 
                                             <button type="submit">Create Event</button>
                                         </form>

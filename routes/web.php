@@ -102,12 +102,19 @@ Route::delete('/visit-request/{eventId}/reject', [CalenderController::class, 're
     ->name('visit.request.reject');
 Route::post('/companies/{companyId}/upload-media', [CompanyController::class, 'uploadMedia'])
     ->name('upload.media');
-Route::get('events/create', [EventController::class, 'create'])
-    ->name('events.create');
-Route::post('events/getCompaniesByType', [EventController::class, 'getCompaniesByType'])
+Route::post('/selectCompanies', [EventController::class, 'selectCompanies'])
+    ->name('events.selectCompanies');
+Route::get('/chooseCompanyAndDate', [EventController::class, 'chooseCompanyAndDate'])
+    ->name('events.chooseCompanyAndDate');
+Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+Route::post('/events/getCompaniesByType', [EventController::class, 'getCompaniesByType'])
     ->name('events.getCompaniesByType');
-Route::post('events/store', [EventController::class, 'store'])
+Route::post('/events/store', [EventController::class, 'store'])
     ->name('events.store');
+Route::get('/events/chooseCompanyAndDate', [EventController::class, 'chooseCompanyAndDate'])
+    ->name('events.chooseCompanyAndDate');
+Route::post('/events/selectCompanies', [EventController::class, 'selectCompanies'])
+    ->name('events.selectCompanies');
 Route::get('/', [StripeController::class, 'index'])
     ->name('index');
 Route::post('/checkout', [StripeController::class, 'checkout'])

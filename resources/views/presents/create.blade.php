@@ -24,17 +24,17 @@
 
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <textarea name="description" id="description" class="form-control"></textarea>
+                                        <input name="description" id="description" class="form-control">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="necessary_requirements">Necessary Requirements (optional)</label>
-                                        <textarea name="necessary_requirements" id="necessary_requirements" class="form-control"></textarea>
+                                        <input name="necessary_requirements" id="necessary_requirements" class="form-control">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="optional_requirements">Optional Requirements (optional)</label>
-                                        <textarea name="optional_requirements" id="optional_requirements" class="form-control"></textarea>
+                                        <input name="optional_requirements" id="optional_requirements" class="form-control">
                                     </div>
 
                                     <div class="form-group">
@@ -44,6 +44,7 @@
 
                                     <button type="submit" class="btn btn-primary">Create</button>
                                 </form>
+
 
                             </div>
                             </div>

@@ -16,7 +16,7 @@ class CreateGiftsTable extends Migration
         Schema::create('gifts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
+            $table->string('description');
             $table->string('necessary_requirements')->nullable();
             $table->string('optional_requirements')->nullable();
             $table->string('links')->nullable();

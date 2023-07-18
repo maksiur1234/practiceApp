@@ -95,7 +95,7 @@ class CalenderController extends Controller
         $user = Auth::user();
 
         $company = Company::findOrFail($companyId);
-        $companies = Company::all(); // Retrieve all companies
+        $companies = Company::all();
 
         return view('send_visit_requests', compact('company', 'companies', 'user'));
     }

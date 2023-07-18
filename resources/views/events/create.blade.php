@@ -15,11 +15,19 @@
                         @endif
 
                         <div class="card-header">
-                            <h3>Select company and make a event!</h3>
+                            <h3>Select type to choose a company and create an event!</h3>
                             <div class="card-body">
                                 <div class="card-body">
-                                    <!-- Formularz do wyboru typu -->
-                                    <form action="{{ route('events.getCompaniesByType') }}" method="post" id="typeForm">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('events.selectCompanies') }}" method="post" id="typeForm">
                                         @csrf
                                         <label for="type_id">Select Type:</label>
                                         <select name="type_id" id="type_id" required>
@@ -30,29 +38,6 @@
                                         </select>
                                         <button type="submit">Next</button>
                                     </form>
-
-
-                                    <!-- Wyświetlanie firm po wybraniu typu -->
-                                    @if(isset($companies) && count($companies) > 0)
-                                        <form id="eventForm" method="POST">
-                                            @csrf <!-- Dodaj to @csrf -->
-                                            <label for="event_name">Event Name:</label>
-                                            <input type="text" name="event_name" required>
-
-                                            <label for="event_start">Event Date:</label>
-                                            <input type="date" name="event_start" required>
-
-                                            <label for="company_id">Select Company:</label>
-                                            <select name="company_id" id="company_id" required>
-                                                <option value="">Select a company</option>
-                                                @foreach ($companies as $company)
-                                                    <option value="{{ $company->id }}">{{ $company->companyName }}</option>
-                                                @endforeach
-                                            </select>
-
-                                            <button type="submit">Create Event</button>
-                                        </form>
-                                    @endif
                                 </div>
                             </div>
                         </div>
