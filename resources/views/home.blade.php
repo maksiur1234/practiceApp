@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header">{{ __('Dashboard for user') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -13,27 +13,23 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        {{ __('You are logged in as a user!') }}<br>
-                        If you want to create a new company, click the link.<br>
-                            <h2> <a href="{{ route('companies.create') }}">Create a new company</a><br></h2>
-                            <h2><a href="{{ route('events.create') }}">Create a new event</a></h2>
-                            <h2><a href="{{ route('presents.create') }}">Create a new present</a></h2>
-                            <div class="card-header">
+
+                        <h2> <a href="{{ route('companies.create') }}">Create a new company</a><br></h2>
+                        <h2><a href="{{ route('events.create') }}">Create a new event</a></h2>
+                        <h2><a href="{{ route('choose.events') }}">Create a new present</a></h2>
+                        <div class="card-header">
                             <div class="card-body">
                                 @if ($user && $user->companies->count() > 0)
+                                    <h2>List of your companies</h2>
                                     @foreach ($user->companies as $item)
-                                        <h3>List of your companies and visit requests</h3>
-                                        <p>Company Name: {{ $item->companyName }}</p>
+                                        <p>Company Name: {{ $item->name }}</p>
                                         <p>Email: {{ $item->email }}</p>
-                                        <p><a href="{{ route('company.details', $item->id) }}">Click here to view more details</a></p>
+                                        <p><a href="{{ route('company.details', $item->id) }}">Click here to view more details.</a></p>
                                         <hr>
 
-                                        <h4>Visit Requests to {{ $item->companyName }}</h4>
+                                        <h2>Event Requests to {{ $item->name }}</h2>
                                         @if ($item->visitRequests->count() > 0)
                                             @foreach ($item->visitRequests as $visitRequest)
-                                                <p>User: {{ optional($visitRequest->user)->name }}</p>
-                                                <p>Visit Date: {{ $visitRequest->visit_date }}</p>
-                                                <p>Status: {{ $visitRequest->event_status }}</p>
                                                 <form action="{{ route('checkout') }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="visit_request_id" value="{{ $visitRequest->id }}">
@@ -48,12 +44,18 @@
                                 @else
                                     <p>You don't have any company.</p>
                                 @endif
-                                @foreach ($user->companies as $company)
-                                    <a href="{{ route('send.visit.request', ['companyId' => $company->id]) }}">Send Visit Request for {{ $company->companyName }}</a>
-                                    <hr>
-                                @endforeach
-                                    <h2>Your gifts</h2>
+                                @if ($user)
+                                    @foreach ($user->companies as $company)
+                                        <a href="{{ route('send.visit.request', ['companyId' => $company->id]) }}">Send Visit Request for {{ $company->name }}</a>
+                                        <hr>
+                                    @endforeach
+                                @else
+                                    <p>No companies to send visit request</p>
+                                @endif
+                                    <div class="card-body">
+                                @if ($user)
                                     @foreach ($user->gifts as $gift)
+                                                <h2>Your gifts: </h2>
                                         <div>
                                             <h4>Title: {{ $gift->title }}</h4>
                                             <p>Description: {{ $gift->description }}</p>
@@ -69,6 +71,10 @@
                                             <button type="submit">Delete</button>
                                         </form>
                                     @endforeach
+                                @else
+                                    <p>No gifts available for this user.</p>
+                                @endif
+                                    </div>
                             </div>
                         </div>
                     </div>

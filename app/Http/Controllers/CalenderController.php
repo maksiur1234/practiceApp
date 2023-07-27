@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Company;
+use App\Models\Type;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -16,19 +17,18 @@ class CalenderController extends Controller
     {
         $request->validate([
             'company_id' => 'required|exists:companies,id',
-            'visit_date' => 'required|date',
+            'date' => 'required|date',
         ]);
 
         $user = $request->user();
 
         $event = new Event();
-        $event->event_name = 'Visit Request';
-        $event->event_start = $request->visit_date;
-        $event->event_end = $request->visit_date;
+        $event->name = 'Visit Request';
+        $event->status = 'pending';
+        $event->date = $request->visit_date;
         $event->company_id = $request->company_id;
         $event->user_id = $user->id;
-        $event->visit_date = $request->visit_date;
-        $event->event_status = 'pending';
+
         $event->save();
 
         $company = Company::findOrFail($request->company_id);
@@ -49,7 +49,7 @@ class CalenderController extends Controller
             return response()->json(['error' => 'You do not have permission to do this!'], 403);
         }
 
-        $event->event_name = "Visit Accepted";
+        $event->name = "Visit Accepted";
         $event->save();
 
         return response()->json(['message' => 'Visit request has been accepted']);
@@ -109,7 +109,7 @@ class CalenderController extends Controller
             return redirect('/home')->with('error', 'You do not have permission to do this!');
         }
 
-        $event->event_status = 'accepted';
+        $event->status = 'accepted';
         $event->save();
 
         return redirect('/home')->with('success', 'Visit has been confirmed!');

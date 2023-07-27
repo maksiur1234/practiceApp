@@ -21,6 +21,7 @@ class CreateGiftsTable extends Migration
             $table->string('optional_requirements')->nullable();
             $table->string('links')->nullable();
             $table->integer('user_id');
+            $table->integer('event_id');
             $table->timestamps();
         });
     }

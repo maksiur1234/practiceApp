@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('companyName');
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('type_id')->default(1);
-            $table->string('user_id');
+            $table->integer('user_id');
             $table->string('media_url')->default('example.com');
             $table->timestamps();
         });

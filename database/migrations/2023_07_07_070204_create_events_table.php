@@ -12,18 +12,19 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('event_name')->default('Visit');
-            $table->date('event_start');
-            $table->date('event_end')->nullable();
-            $table->string('event_status')->default('pending');
-            $table->unsignedBigInteger('company_id');
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->string('name')->default('Visit');
+            $table->string('status')->default('pending');
+            $table->date('date')->nullable();
+            $table->unsignedBigInteger('company_id')->default(null); // lub np. ->default(1);
+            $table->unsignedBigInteger('type_id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->date('visit_date')->nullable();
             $table->timestamps();
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('type_id')->references('id')->on('types');
         });
     }
+
+
 
     /**
      * Reverse the migrations.

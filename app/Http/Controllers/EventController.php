@@ -26,34 +26,34 @@ class EventController extends Controller
         return response()->json(['companies' => $companies]);
     }
 
+
     public function store(Request $request)
     {
         $request->validate([
             'type_id' => 'required|exists:types,id',
-            'event_name' => 'required',
-            'event_start' => 'required|date',
             'company_id' => 'required|exists:companies,id',
-            'event_end' => 'nullable|date',
-            'event_status' => 'nullable',
+            'name' => 'required',
+            'date' => 'required|date',
+            'status' => 'nullable',
         ]);
 
-        try {
-            $data = $request->only([
-                'event_name',
-                'event_start',
-                'company_id',
-                'event_end',
-                'event_status',
-            ]);
+        $data = $request->only([
+            'name',
+            'date',
+            'status',
+            'type_id',     // Dodajemy pole type_id do tablicy danych
+        ]);
 
+        $data['user_id'] = auth()->id();
+
+        try {
             $event = Event::create($data);
 
-            return new JsonResponse(['message' => 'New event created successfully!', 'data' => $event], 201);
+            return new JsonResponse($event->toArray(), 201);
         } catch (\Exception $e) {
-            return new JsonResponse(['error' => 'Failed to save event to the database.'], 500);
+            return new JsonResponse(['error' => 'failed to save'], 500);
         }
     }
-
 
     public function selectCompanies(Request $request)
     {
@@ -80,4 +80,61 @@ class EventController extends Controller
 
         return view('events.choose_company_and_date', compact('companies'));
     }
+
+    public function update(Request $request, $id)
+    {
+       $event = Event::findOrFail($id);
+
+       $request->validate([
+          'type_id' => 'required|exists:types,id',
+          'name' => 'required',
+          'date' => 'required|date',
+          'status' => 'nullable',
+       ]);
+
+       $data = $request->only([
+          'name',
+          'date',
+          'status'
+       ]);
+
+       try {
+           $event->update($data);
+
+           if($request->has('data')) {
+               $eventData = $request->input('data');
+
+               if (is_array($eventData)) {
+                   $event->companies()->detach();
+
+                   foreach ($eventData as $item) {
+                       if (isset($item['type_id']) && isset($item['company_id'])) {
+                           $company = Company::find($item['company_id']);
+                           if ($company) {
+                               $event->companies()->attach($company);
+                           }
+                       }
+                   }
+               }
+           }
+           return new JsonResponse($event->toArray(), 200);
+       } catch (\Exception $e) {
+           return new JsonResponse(['error' => 'failed to update']);
+       }
+    }
+    public function destroy($id)
+    {
+        $event = Event::findOrFail($id);
+
+        try {
+            $event->companies()->detach();
+
+            $event->delete();
+
+            return new JsonResponse(['message' => 'Event deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Failed to delete event'], 500);
+        }
+    }
+
 }

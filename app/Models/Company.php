@@ -12,36 +12,31 @@ class Company extends Model implements Authenticatable
 {
     use AuthenticatableTrait;
     use HasFactory;
-
-//    protected $fillable = ['companyName', 'email', 'password', 'type_id'];
-//
-    public function type()
+    public function types()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsToMany(Type::class, 'company_type');
     }
     public function events()
     {
-        return $this->hasMany(Event::class);
+        return $this->belongsToMany(Event::class);
     }
 
     protected $fillable = [
-        'companyName',
+        'name',
         'email',
         'password',
         'provider',
         'provider_id',
         'provider_token',
         'type_id',
+        'user_id',
         'media_url',
-        // inne pola Twojego modelu Company
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
-    // Inne relacje, atrybuty lub metody Twojego modelu Company
 
     /**
      * Get the name of the unique identifier for the user.
@@ -106,7 +101,7 @@ class Company extends Model implements Authenticatable
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'username');
+        return $this->belongsTo(User::class);
     }
     public function visitRequests()
     {

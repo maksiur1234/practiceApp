@@ -24,24 +24,24 @@
                                         <h3>Available companies:</h3>
                                         <ul>
                                             @foreach ($companies as $company)
-                                                <li>{{ $company->companyName }}</li>
+                                                <li>{{ $company->name }}</li>
                                             @endforeach
                                         </ul>
                                     @endif
                                 @if(isset($companies) && count($companies) > 0)
                                         <form id="eventForm" action="{{ route('events.store') }}" method="POST">
                                             @csrf <!-- Dodaj to @csrf -->
-                                            <label for="event_name">Event Name:</label>
-                                            <input type="text" name="event_name" required>
+                                            <label for="name">Event Name:</label>
+                                            <input type="text" name="name" required>
 
-                                            <label for="event_start">Event Date:</label>
-                                            <input type="date" name="event_start" required>
+                                            <label for="date">Event Date:</label>
+                                            <input type="date" name="date" required>
 
                                             <label for="company_id">Select Company:</label>
                                             <select name="company_id" id="company_id" required>
                                                 <option value="">Select a company</option>
                                                 @foreach ($companies as $company)
-                                                    <option value="{{ $company->id }}">{{ $company->companyName }}</option>
+                                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
                                                 @endforeach
                                             </select>
 

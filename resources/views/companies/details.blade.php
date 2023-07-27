@@ -21,8 +21,8 @@
                             <h3>List of your companies</h3>
                             <div class="card-body">
                                 @ <h4>User: {{ $event->user->name }}</h4>
-                                <p>Visit Date: {{ $event->visit_date }}</p>
-                                <p>Event Name: {{ $event->event_name }}</p>
+                                <p>Visit Date: {{ $event->date }}</p>
+                                <p>Event Name: {{ $event->name }}</p>
 
                             </div>
                             </div>
