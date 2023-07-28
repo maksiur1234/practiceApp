@@ -1,0 +1,65 @@
+/* react-app/src/css/Register.css */
+
+/* Cała strona */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f9f6f3; /* Kremowy kolor tła */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Kontener formularza */
+.register-form {
+    width: 90%; /* Powiększamy formularz na 90% szerokości ekranu */
+    max-width: 450px; /* Ograniczamy szerokość formularza do maksymalnie 450px */
+    padding: 20px;
+    background-color: #f5f5f5; /* Kolor tła formularza */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Wycentrowanie formularza na stronie */
+}
+
+/* Nagłówek formularza */
+.register-form h2 {
+    margin-bottom: 20px;
+    color: #007bff;
+    text-align: center;
+}
+
+/* Pola formularza */
+.register-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Przycisk "Register" */
+.register-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Przycisk "Register" po najechaniu myszką */
+.register-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Komunikat o błędzie */
+.register-form .error {
+    color: #dc3545;
+}
+
+/* Obramowanie czerwone wokół pól z błędami */
+.register-form .is-invalid {
+    border: 1px solid #dc3545;
+}
