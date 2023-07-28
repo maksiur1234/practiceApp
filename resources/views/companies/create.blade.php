@@ -17,10 +17,10 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="companyName">{{ __('Company Name') }}</label>
-                                <input id="companyName" type="text" class="form-control @error('companyName') is-invalid @enderror" name="companyName" value="{{ old('companyName') }}" required autofocus>
+                                <label for="name">{{ __('Company Name') }}</label>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
 
-                                @error('companyName')
+                                @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

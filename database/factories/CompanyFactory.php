@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Company;
-use App\Models\Type;
+use     App\Models\Company;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompanyFactory extends Factory
@@ -13,10 +13,10 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
-            'companyName' => $this->faker->company,
+            'name' => $this->faker->company,
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt('password'),
-            'type_id' => 1,
+            'user_id' => $this->faker->randomNumber(),
         ];
     }
 }
