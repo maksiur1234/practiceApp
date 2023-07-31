@@ -10,19 +10,22 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'event_name',
-        'event_start',
-        'event_end',
+        'name',
+        'status',
+        'date',
         'company_id',
-<<<<<<< HEAD
         'user_id',
-        'visit_date',
-=======
->>>>>>> origin/main
+        'type_id',
     ];
 
-    public function company()
+    public function companies()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsToMany(Company::class);
+    }
+
+
+    public function gift()
+    {
+        return $this->belongsTo(Gift::class);
     }
 }
