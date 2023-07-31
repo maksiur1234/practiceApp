@@ -3,8 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
-import '../css/Register.css'; // Importujemy plik CSS z stylem dla formularza
-
+import '../css/Register.css';
 const Register = () => {
     const navigate = useNavigate();
 
@@ -24,7 +23,7 @@ const Register = () => {
         try {
             const response = await api.post('/register', formData);
             const user = response.data.user;
-            console.log('User:', user); // Dodaj ten console.log
+            console.log('User:', user);
             navigate('/dashboard', { state: { name: user.name } });
         } catch (error) {
             console.error(error.response.data);

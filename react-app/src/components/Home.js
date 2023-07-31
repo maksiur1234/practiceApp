@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../css/Home.css';
 
 const Home = () => {
     return (
-        <div>
-            <h2>Welcome to Practice App</h2>
-            Please login if you want to use app!
+        <div className="container">
+            <h2>Welcome</h2>
             <p>
-                To get started, please <Link to="/login">login</Link> or <Link to="/register">register</Link>.
+                Please login if you want to use the app!
             </p>
+            <div className="links">
+                <Link to="/login">Login</Link>
+                <Link to="/register">Register</Link>
+            </div>
         </div>
     );
 };

@@ -3,17 +3,24 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\CalenderController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\GiftController;
+use Illuminate\Support\Facades\Auth;
 
+Route::group(['prefix' => 'api'], function () {
+    Route::get('/types', [CompaniesController::class, 'create']);
+    Route::post('/companies', [CompaniesController::class, 'store']);
+    Route::get('/companies', [CompaniesController::class, 'index']);
+});
 
-
-//Route::post('events/getCompaniesByType', [EventController::class, 'getCompaniesByType'])
-//    ->name('events.getCompaniesByType');
-//
-//// Ścieżki dla zasobów API
-//Route::prefix('events')->group(function () {
-//    Route::post('store', [EventController::class, 'store'])->name('events.store');
-//});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('/register', [RegisterController::class, 'registerUser']);
-Route::get('companies', [CompaniesController::class, 'index']);
+Route::post('/login', [LoginController::class, 'login']);
+
+

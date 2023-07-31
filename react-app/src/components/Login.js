@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../auth-context';
 import { useNavigate, Link } from 'react-router-dom';
-import api from '../api'; // Importujemy moduł api do wykonywania żądań HTTP
-import '../css/Login.css'; // Importujemy nasz plik stylu CSS
+import api from '../api';
+import '../css/Login.css';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Login = () => {
         password: '',
     });
     const [errors, setErrors] = useState({});
+    const authContext = useContext(AuthContext);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -23,7 +25,6 @@ const Login = () => {
         event.preventDefault();
         const { email, password } = formData;
 
-        // Walidacja pól formularza
         if (!email || !password) {
             const newErrors = {};
             if (!email) {
@@ -37,12 +38,17 @@ const Login = () => {
         }
 
         try {
-            // Wykonaj żądanie logowania do API
+            // execute response from api
             const response = await api.post('/login', { email, password });
-            // Jeśli logowanie powiodło się, przekieruj użytkownika na stronę dashboard
+
+            // set loign user in authcontext
+            authContext.setUser(response.data.user);
+
+            // save user in localStorage after loign
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+
             navigate('/dashboard');
         } catch (error) {
-            // Obsługa błędów, np. wyświetlenie komunikatu o nieudanym logowaniu
             console.error(error.response.data);
             const newErrors = {
                 email: 'Invalid credentials',
@@ -79,19 +85,6 @@ const Login = () => {
                         onChange={handleInputChange}
                     />
                     {errors.password && <div className="invalid-feedback">{errors.password}</div>}
-                </div>
-                <div className="mb-3">
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id="remember"
-                            name="remember"
-                        />
-                        <label className="form-check-label" htmlFor="remember">
-                            Remember Me
-                        </label>
-                    </div>
                 </div>
                 <div className="row mb-0">
                     <div className="col-md-8 offset-md-4">

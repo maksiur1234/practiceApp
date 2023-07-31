@@ -24,10 +24,10 @@ class CompaniesController extends Controller
     public function create()
     {
         $types = Type::all();
-        if (request()->expectsJson()) {
-            return response()->json(['types' => $types], 200);
-        }
-        return view('companies.create', ['types' => $types]);
+
+        return response()->json(['types' => $types], 200);
+
+       // return view('companies.create', ['types' => $types]);
     }
 
     public function store(StoreCompanyRequest $request)
@@ -86,17 +86,11 @@ class CompaniesController extends Controller
         //return redirect()->back()->with('success', 'Media uploaded successfully!');
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
-       $type = Type::findOrFail($request->input('type_id'));
-//       dd($type);
+        $userId = $request->input('user_id');
+        $companies = Company::where('user_id', $userId)->get();
 
-        return response()->json(
-            Company::query()
-                ->whereHas('type', function(Builder $query) use ($type){
-                    $query->where('name', $type->name);
-                })
-                ->get()
-        );
+        return response()->json(['companies' => $companies], 200);
     }
 }
