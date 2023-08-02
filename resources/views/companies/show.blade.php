@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header">{{ __('Dashboard for company') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -14,16 +14,14 @@
                             </div>
                         @endif
 
-                        {{ __('You are logged in as a company!') }}<br>
-                        It is a dashboard for the company.<br>
                         <div class="card-header">
-                            <h3>List of requests for your company</h3>
+                            <h3>List of requests for your companies, click the link for details to see visit requests.</h3>
                             <div class="card-body">
                                 <div class="card-body">
                                     @foreach ($user->companies as $company)
                                         <div class="card">
                                             <div class="card-header">
-                                                <h3>{{ $company->companyName }}</h3>
+                                                <h3>{{ $company->name }}</h3>
                                             </div>
                                             <div class="card-body">
                                                 <p>Email: {{ $company->email }}</p>
