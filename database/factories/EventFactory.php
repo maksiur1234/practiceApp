@@ -4,6 +4,7 @@ namespace Database\Factories;
 use App\Models\Event;
 use App\Models\Company;
 use App\Models\User;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EventFactory extends Factory
@@ -14,14 +15,15 @@ class EventFactory extends Factory
     {
         $company = Company::factory()->create();
         $user = User::factory()->create();
+        $type = Type::factory()->create();
 
         return [
-            'event_name' => 'Visit Request',
-            'event_start' => $this->faker->dateTime(),
-            'event_end' => $this->faker->dateTime(),
+            'name' => 'Visit Request',
+            'status' => 'pending',
+            'date' => $this->faker->date(),
             'company_id' => $company->id,
+            'type_id' => $type->id,
             'user_id' => $user->id,
-            'visit_date' => $this->faker->date(),
         ];
     }
 }
